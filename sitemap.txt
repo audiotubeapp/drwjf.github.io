@@ -1,8 +1,8 @@
 https://drwjf.github.io/intr.html
-https://drwjf.github.io/comath.html
-https://drwjf.github.io/doprog.html
-https://drwjf.github.io/sciquiz.html
-https://drwjf.github.io/usamarket.html
+https://drwjf.github.io/intr-comath.html
+https://drwjf.github.io/intr-doprog.html
+https://drwjf.github.io/intr-sciquiz.html
+https://drwjf.github.io/intr-usamarket.html
 https://drwjf.github.io/
 https://drwjf.github.io/comath
 https://drwjf.github.io/doprog
