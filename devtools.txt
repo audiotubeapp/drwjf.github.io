@@ -1,0 +1,93 @@
+Git
+
+git init					Initialized empty Git repository in $pwd;  ls -ah to confirm .git sub-directory
+
+git add readme.txt				update working directory to stage area
+git commit -m "wrote a readme file"		update stage area to repository
+git status
+git log --pretty=oneline
+
+git reset --hard HEAD^				backward to the previous version
+git reset --hard 109(commit id of the version)	forward to future version
+git reflog					list all commit id include future verions
+
+
+
+Concept of working directory, stage, HEAD
+
+
+			  |       Repository              |
+working directory --------> stage ----------> HEAD(master)
+		  git add         git commit
+
+
+HEAD is the newest version in repository
+
+
+
+git diff HEAD -- readme.txt			compare working directory with HEAD(master) in repository 
+git diff readme.txt				compare working directory with stage in repository
+git diff --cached readme.txt			compare stage with HEAD(master)
+
+
+
+Scene 1. undo all change in working directory  
+git checkout -- readme.txt
+Scene 2. undo all change in stage area, then undo all change in working diretory
+git reset HEAD readme.txt
+git checkout -- readme.txt
+Scene 3. undo the last step commit
+git reset --hard HEAD^ 
+
+
+
+
+Remove file:
+rm test.txt
+git status
+	it will report the file was removed
+git rm test.txt
+git commit -m "remove test.txt"
+
+
+Un-remove file:
+git checkout -- test.txt
+
+
+
+
+Always use 'origin' as remote repository name 
+create a remote repository from beginning
+1. git remote add origin name@company.com:xxx/yyy.git
+   connect a remote repository
+2. git push -u origin master
+   In the first time, should use '-u', this will push master in local to remote original. git will connect local master with remote master.
+3. git push origin master
+   update local to remote
+
+
+clone a remote repository to start working
+1. git clone name@company.com:xxx/yyy.git
+
+
+
+
+Branch
+1. git checkout -b dev
+   create new branch, this command is equal to two commands: "git branch dev" "git checkout dev"
+2. git branch
+   this command list all branchs. Show a * before current branch
+
+3. git switch master
+   switch branch back to master.   p.s. use "git switch -c dev" to switch to dev branch
+   apple git does not support git switch, please use git checkout master to switch to master
+
+3. git merge dev
+   this command merge the specific branch to current branch(master)
+4. git branch -d dev
+   remove branch after merge
+  
+
+try merge conflict
+
+
