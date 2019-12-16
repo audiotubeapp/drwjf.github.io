@@ -1,16 +1,19 @@
 Git
 
-git init					Initialized empty Git repository in $pwd;  ls -ah to confirm .git sub-directory
+`git init` Initialized empty Git repository in $pwd;  ls -ah to confirm .git sub-directory
 
-git add readme.txt				update working directory to stage area
-git commit -m "wrote a readme file"		update stage area to repository
-git status
-git log --pretty=oneline
 
-git reset --hard HEAD^				backward to the previous version
-git reset --hard 109(commit id of the version)	forward to future version
-git reflog					list all commit id include future verions
+`git config --global color.ui true`  let your git ui colorful  
 
+
+`git add readme.txt` update working directory to stage area
+`git commit -m "wrote a readme file"` update stage area to repository
+`git status`
+`git log --pretty=oneline`
+
+`git reset --hard HEAD^` backward to the previous version
+`git reset --hard <commit-id>` forward to future version
+`git reflog` list all commit id include future verions
 
 
 Concept of working directory, stage, HEAD
@@ -25,64 +28,129 @@ HEAD is the newest version in repository
 
 
 
-git diff HEAD -- readme.txt			compare working directory with HEAD(master) in repository 
-git diff readme.txt				compare working directory with stage in repository
-git diff --cached readme.txt			compare stage with HEAD(master)
+`git diff HEAD -- readme.txt` compare working directory with HEAD(master) in repository 
+`git diff readme.txt` compare working directory with stage in repository
+`git diff --cached readme.txt` compare stage with HEAD(master)
 
 
 
 Scene 1. undo all change in working directory  
-git checkout -- readme.txt
+`git checkout -- readme.txt`
 Scene 2. undo all change in stage area, then undo all change in working diretory
-git reset HEAD readme.txt
-git checkout -- readme.txt
+`git reset HEAD readme.txt`
+`git checkout -- readme.txt`
 Scene 3. undo the last step commit
-git reset --hard HEAD^ 
+`git reset --hard HEAD^` 
 
 
 
 
 Remove file:
-rm test.txt
-git status
+`rm test.txt`
+`git status`
 	it will report the file was removed
-git rm test.txt
-git commit -m "remove test.txt"
+`git rm test.txt`
+`git commit -m "remove test.txt"`
 
 
 Un-remove file:
-git checkout -- test.txt
+`git checkout -- test.txt`
 
 
 
 
 Always use 'origin' as remote repository name 
 create a remote repository from beginning
-1. git remote add origin name@company.com:xxx/yyy.git
+1. `git remote add origin name@company.com:xxx/yyy.git`
    connect a remote repository
-2. git push -u origin master
+2. `git push -u origin master`
    In the first time, should use '-u', this will push master in local to remote original. git will connect local master with remote master.
-3. git push origin master
+3. `git push origin master`
    update local to remote
 
 
 clone a remote repository to start working
-1. git clone name@company.com:xxx/yyy.git
+1. `git clone name@company.com:xxx/yyy.git`
 
 
 
 
 Branch
-1. git checkout -b dev
+1. `git checkout -b dev`
    create new branch, this command is equal to two commands: "git branch dev" "git checkout dev"
-2. git branch
+
+2. `git branch`
    this command list all branchs. Show a * before current branch
 
-3. git switch master
+3. `git switch master`
    switch branch back to master.   p.s. use "git switch -c dev" to switch to dev branch
    apple git does not support git switch, please use git checkout master to switch to master
 
-3. git merge dev
+3. `git merge dev`
    this command merge the specific branch to current branch(master)
-4. git branch -d dev
+   if conflit happened, run "git status" to find conflict, then edit conflict file, then run `git add readme.txt` `git commit -m "conflict fixed"` to fix conflict. run `git log --grapn --pretty=oneline --abbrev-commit` to view merge history
+   use --no-ff paramter to keep merge history
+
+
+4. `git branch -d dev`
    remove branch after merge
+
+
+
+!!!!! strategy !!!!!
+ keep "master" branch stable, do not work in the "master" branch. Always use "dev" branch to develop.
+
+
+
+
+to fix bug immediately when 'dev' branch has not finished 
+
+1. `git stash` to save working directory
+2. `git checkout master` to back to
+3. `git checkout -b issue-101`
+4. fix bug
+4. `git add readme.txt'
+5. `git commit -m "fix bug 101"`
+    please save the commit id, to apply to dev branch later 
+6. `git checkout master`
+7. `git merge --no-ff -m "merge bug fix 101" issue-101
+8. `git checkout dev`
+9. `git status`
+10. `git stash list`
+11. `git stash pop`, now keep on working on dev
+12. `git cherry-pick saved_commit_id`, please use real saved_commit_id to "replay" change in master branch
+13. `git branch -D <name>` force to remove un-merged branch
+
+
+
+Team work for multiple developers by `git push`
+
+1. `git remote -v` to show remote repository name
+2. `git checkout -b <branch-name> origin/<branch-name>` to create local branch map to remote branch, please use same branch name.
+2. `git push origin <branch-name>`    push local <branch-nbame> branch to remote origin
+3. if remote is newer, try `git pull` to merge 
+4. if merge conflict, resolve in local then `git push origin <branch-name>` 
+5. if show 'no tracking information' when run `git pull`, then run `git branch --set-upstream-to <branch-name> origin/<branch-name>
+
+
+Team work for multiple developers by `git rebase`
+1. `git log --graph --pretty=oneline --abbrev-commit`
+2. if somebody else push before you push, then run `git pull`
+3. `git status`
+4. `git log --graph --pretty=oneline --abbrev-commit` will show history branch, bad look
+5. `git rebase` make history branch to a line
+6. `git log --graph --pretty=oneline --abbrev-commit` will show no branch
+7. try `git push origin master` to update remote
+
+
+
+Tag
+1. `git tag <tag-name>` will tag newest commit to <tag-name> 
+2. `git tag <tag-name> <commit-id>` will tag <commit-id> to <tag-name>
+3. `git tag` show all tags
+4. `git show <tag-name>`
+5. `git tag -d <tag-name>`    delete <tag-name> tag in local. if the <tag-name> has been pushed to remote, pleae refer 7
+6. `git push origin <tag-name>`
+7. `git push origin :refs/tags/<tag-name>` to remove the <tag-name> in remote
+ 
+
