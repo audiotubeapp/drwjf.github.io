@@ -1,5 +1,1 @@
-https://drwjf.github.io/intr.html
-https://drwjf.github.io/intr-comath.html
-https://drwjf.github.io/intr-doprog.html
-https://drwjf.github.io/intr-sciquiz.html
-https://drwjf.github.io/intr-usamarket.htm
+https://drwjf.github.io/static/home.html

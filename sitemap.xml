@@ -3,24 +3,8 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
    <url>
-      <loc>https://drwjf.github.io/intr.html</loc>
+      <loc>https://drwjf.github.io/static/home.html</loc>
       <changefreq>monthly</changefreq>
-   </url>
-   <url>
-       <loc>https://drwjf.github.io/intr-comath.html</loc>
-       <changefreq>monthly</changefreq>
-   </url>
-   <url>
-       <loc>https://drwjf.github.io/intr-doprog.html</loc>
-       <changefreq>monthly</changefreq>
-   </url>
-   <url>
-       <loc>https://drwjf.github.io/intr-sciquiz.html</loc>
-       <changefreq>monthly</changefreq>
-   </url>
-   <url>
-       <loc>https://drwjf.github.io/intr-usamarket.htm</loc>
-       <changefreq>monthly</changefreq>
    </url>
 
 </urlset>
