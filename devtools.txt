@@ -36,7 +36,7 @@ HEAD is the newest version in repository
 
 Scene 1. undo all change in working directory  
 `git checkout -- readme.txt`
-Scene 2. undo all change in stage area, then undo all change in working diretory
+Scene 2. undo all change in stage area, then undo all change in working directory
 `git reset HEAD readme.txt`
 `git checkout -- readme.txt`
 Scene 3. undo the last step commit
@@ -154,3 +154,24 @@ Tag
 7. `git push origin :refs/tags/<tag-name>` to remove the <tag-name> in remote
  
 
+Banish .DS_Store from git
+1. Remove existing files from the repository:
+`find . -name .DS_Store -print0 | xargs -0 git rm -f --ignore-unmatch`
+2. Add the line ".DS_Store" to the file .gitignore, which can be found at the top level of your repository (or created if it isn't there already). 
+`echo .DS_Store >> .gitignore`
+3. Commit it
+git add .gitignore
+git commit -m 'Banish .DS_Store'
+
+
+Global exclude some file
+1. Find your global excludes file, if it doesn't exist, create one
+`git config --get core.excludesfile`
+2.  Set global excludes file
+`git config --global core.excludesfile '~/.gitignore'`
+3. Edit the file
+echo .DS_Store >> .gitignore
+
+Remove file or directory entirely from the repository’s history
+1. Check each commit and remove
+`git filter-branch --index-filter "git rm -rf --cached --ignore-unmatch path_to_file" HEAD`
