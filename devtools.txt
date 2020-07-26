@@ -173,5 +173,8 @@ Global exclude some file
 echo .DS_Store >> .gitignore
 
 Remove file or directory entirely from the repository’s history
+0.  Backup path_to_file
 1. Check each commit and remove
 `git filter-branch --index-filter "git rm -rf --cached --ignore-unmatch path_to_file" HEAD`
+2. Add this files to .gitstore
+3. 
